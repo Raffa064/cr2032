@@ -1,0 +1,14 @@
+{
+  "name": "cr2032",
+  "version": "1.0.0",
+  "description": "Private download proxy",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Raffa064",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
