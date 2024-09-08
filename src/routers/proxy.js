@@ -31,9 +31,9 @@ function checkCredentials(user, password) {
 }
 
 function initPipedDownload(url, res) {
-  try {
-    const req_id = parseInt(Math.floor(Math.random() * 1000))
-    
+  const req_id = parseInt(Math.floor(Math.random() * 1000))
+  
+  try {  
     https.get(url, (urlRes) => {
       console.log(`[${req_id}] Initilized piped download: ${url}`)
       
