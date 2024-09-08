@@ -1,0 +1,133 @@
+* {
+  padding: 0;
+  margin: 0;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+html, body {
+  width: 100vw;
+  height: 100vh;
+  background: #111;
+}
+
+body {
+  max-width: 600px;
+  padding: 10px;
+  margin: auto;
+}
+
+body > * {
+  margin-bottom: 10px;
+}
+
+h1 {
+  color: #fff;
+}
+
+#status {
+  display: inline-block;
+  width: 1ch;
+  height: 1ch;
+  border-radius: 50%;
+  color: #08f;
+  position: relative;
+}
+
+#status:hover::after {
+  content: 'Download Status';
+  width: fit-content;
+  white-space: nowrap;
+  position: absolute;
+  bottom: 0ch;
+  transform: translateY(100%);
+  font-size: 12px;
+  background: #333;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  border-top-left-radius: 0px;
+  box-shadow: 2px 2px 5px #0006;
+  animation: fadein .2s forwards;
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+#status.active {
+  animation: status-blink .2s infinite ease;
+}
+
+@keyframes status-blink {
+  0%, 100% {
+    color: #08f;
+    text-shadow: 0px 0px 2px #08f; 
+  }
+
+  50% {
+    color: #0f8;
+    text-shadow: 0px 0px 5px #0f8; 
+  }
+}
+
+input, button {
+  display: block;
+  width: 100%;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+
+input {
+  background: #333;
+  color: #fff;
+}
+
+input::placeholder {
+  color: #fff;
+  opacity: 40%;
+}
+
+button {
+  background: #08f;
+  color: #fff;
+  font-weight: bold;
+}
+
+a {
+  display: block;
+  width: 100%;
+  text-align: right;
+  text-decoration: none;
+  color: #08f;
+  transition: color .2s;
+}
+
+a:hover {
+  color: #8bf;
+  text-decoration: underline;
+}
+
+button#download-button {
+  position: relative;
+}
+
+button#download-button::before {
+  content: '';
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  top: 50%;
+  transform: translate(-25px, -65%);
+  background-image: url('../img/download.svg');
+  background-size: cover;
+  color: transparent;
+}
