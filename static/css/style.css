@@ -96,6 +96,11 @@ input::placeholder {
   opacity: 40%;
 }
 
+input:disabled {
+  background: #2f2f2f;
+  color: #fff9;
+}
+
 button {
   background: #08f;
   color: #fff;

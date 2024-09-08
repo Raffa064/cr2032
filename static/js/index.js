@@ -4,11 +4,16 @@ const statusSpan = document.getElementById("status")
 const urlInput = document.getElementById("url-input")
 const downloadButton = document.getElementById("download-button")
 
-downloadButton.onclick = () => {
+downloadButton.onclick = downloadHandler
+
+function downloadHandler()  {
   const url = urlInput.value
   const credentials = getCredentials()
 
+  statusSpan.classList.add("active")
   urlInput.disabled = true
+  downloadButton.onclick = null
+
   fetch(`/proxy?url=${url}`, {
     method: "POST",
     headers: {
@@ -17,14 +22,14 @@ downloadButton.onclick = () => {
     body: JSON.stringify(credentials)
   }).then(async (res) => {
     if (res.ok) {
-      statusSpan.classList.add("active")
-      await receivePipedDownload(res)
-      statusSpan.classList.remove("active")
+      await receivePipedDownload(res, getURLFileName(url))
     } else {
       res.text().then(alert)
     }
   }).finally(() => {
+    statusSpan.classList.remove("active")
     urlInput.disabled = false
+    downloadButton.onclick = downloadHandler
   })
 }
 
@@ -44,7 +49,7 @@ function checkForCredentials() {
   location.href = "credentials.html"
 }
 
-async function receivePipedDownload(stream) {
+async function receivePipedDownload(stream, fileName) {
   const chunks = []
   const reader = stream.body.getReader()
 
@@ -62,7 +67,7 @@ async function receivePipedDownload(stream) {
 
   const blob = new Blob(chunks)
   const url = URL.createObjectURL(blob)
-  download(url, "download")
+  download(url, fileName)
 }
 
 function download(url, fileName) {
@@ -70,4 +75,13 @@ function download(url, fileName) {
   a.href = url
   a.download = fileName
   a.click()
+}
+
+function getURLFileName(url) {
+  const slashIndex = url.lastIndexOf("/")
+
+  if (slashIndex)
+    return url.substring(slashIndex + 1, url.length)
+
+  return url 
 }
